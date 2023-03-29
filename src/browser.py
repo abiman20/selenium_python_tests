@@ -14,5 +14,11 @@ element.send_keys("abi")
 button = driver.find_element(By.ID,"idOfButton")
 button.click()
 
-time.sleep(5)
+result = driver.find_element(By.ID,'result1')
+
+result_text = result.text
+
+assert result_text == 'You clicked on submit Button ::Yes', result_text
+
+time.sleep(2)
 driver.quit()
