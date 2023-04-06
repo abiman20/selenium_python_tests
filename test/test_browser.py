@@ -11,6 +11,9 @@ def driver():
     # Teardown
     driver.quit()
 
+
+# ----------------------------- Test functions -----------------------------------------------------
+
 def test_login_correct_user(driver):
     # Arrange
     login(driver, 'standard_user', 'secret_sauce')
@@ -35,6 +38,8 @@ def test_login_incorrect_user(driver):
     # Assert
     assert error_message == 'Epic sadface: Sorry, this user has been locked out.'
 
+
+# ----------------------------- Business functions -----------------------------------------------------
 
 def login(page,username,password):
     page.get("https://www.saucedemo.com")
