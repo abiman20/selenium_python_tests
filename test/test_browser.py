@@ -1,24 +1,15 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
 @pytest.fixture(scope='module')
-def driver_init():
+def driver():
     # Setup
     driver = webdriver.Chrome(ChromeDriverManager().install())
     yield driver
     # Teardown
     driver.quit()
-
-def login(page,username,password):
-    page.get("https://www.saucedemo.com")
-    username_txt = page.find_element(By.ID,'user-name')
-    password_txt = page.find_element(By.NAME,'password')
-    login_btn =page.find_element(By.CLASS_NAME,'submit-button.btn_action')
-    username_txt.send_keys(username)
-    password_txt.send_keys(password)
-    login_btn.click()
 
 def test_login_correct_user(driver):
     # Arrange
@@ -33,6 +24,7 @@ def test_login_correct_user(driver):
     assert url == 'https://www.saucedemo.com/inventory.html'
     assert title_txt == 'Products'
 
+
 def test_login_incorrect_user(driver):
     # Arrange
     login(driver, 'locked_out_user', 'secret_sauce')
@@ -42,3 +34,13 @@ def test_login_incorrect_user(driver):
 
     # Assert
     assert error_message == 'Epic sadface: Sorry, this user has been locked out.'
+
+
+def login(page,username,password):
+    page.get("https://www.saucedemo.com")
+    username_txt = page.find_element(By.ID,'user-name')
+    password_txt = page.find_element(By.NAME,'password')
+    login_btn =page.find_element(By.CLASS_NAME,'submit-button.btn_action')
+    username_txt.send_keys(username)
+    password_txt.send_keys(password)
+    login_btn.click()
