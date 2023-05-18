@@ -65,9 +65,47 @@ class students:
         print('names:',students.names)
         print('age:',students.age)
 students.printall()
+print(students.__dict__)
 
 class maths:
     def add(a,b):
         c = a + b
         print("Add:",c)
-maths.add(10,15)        
+maths.add(10,15)   
+
+#9. Instance method
+print("--------9. Instance method--------")
+class students:
+    names = 'abi'
+    age = 26
+    def printall(self): #self is the instance 
+        print('names:',students.names)
+        print('age:',students.age) 
+o = students()
+o.printall() #call the function directly
+students.printall(o)
+
+
+#10 Instance with parameters
+print("--------10. Instance method with parameters--------")
+class students:
+    names = 'abi'
+    age = 26
+    def printall(self,gender): #self is the instance 
+        print('names:',students.names)
+        print('age:',students.age) 
+        print("Gender:", gender)
+o = students()
+o.printall("Male")
+
+#11. Constructor or init() funciton
+#  to value initialisation when create new object
+print("--------11. Constructor or init()function ---------")
+class person:
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+oj = person("Abi",29)
+
+print(oj.name)
+print(oj.age)
