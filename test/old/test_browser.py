@@ -10,32 +10,34 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+# from test.common import Common
+
 class TestSwagLabs():
     def setup_method(self, method):
-        self.driver = webdriver.Chrome()
+        self.browser = webdriver.Chrome()
         self.vars = {}
     
     def teardown_method(self, method):
-        self.driver.quit()
+        self.browser.quit()
   
 # ----------------------------- Test functions -----------------------------------------------------
 
     def test_recorded(self):
-        self.driver.get("https://www.saucedemo.com/")
-        self.driver.set_window_size(1440, 875)
-        self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").click()
-        self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").send_keys("standard_user")
-        self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"password\"]").send_keys("secret_sauce")
-        self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
-        self.driver.find_element(By.CSS_SELECTOR, ".app_logo").click()
+        self.browser.get("https://www.saucedemo.com/")
+        self.browser.set_window_size(1440, 875)
+        self.browser.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").click()
+        self.browser.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").send_keys("standard_user")
+        self.browser.find_element(By.CSS_SELECTOR, "*[data-test=\"password\"]").send_keys("secret_sauce")
+        self.browser.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
+        self.browser.find_element(By.CSS_SELECTOR, ".app_logo").click()
 
     def test_login_correct_user(self):
         # precondition
-        self.login(self.driver, 'standard_user', 'secret_sauce')
+        self.login(self.browser, 'standard_user', 'secret_sauce')
 
         # Action
-        url = self.driver.current_url
-        title = self.driver.find_element(By.CLASS_NAME, 'title')
+        url = self.browser.current_url
+        title = self.browser.find_element(By.CLASS_NAME, 'title')
         title_txt = title.text
 
         # postcondition
@@ -45,10 +47,10 @@ class TestSwagLabs():
 
     def test_login_incorrect_user(self):
         # precondition
-        self.login(self.driver, 'locked_out_user', 'secret_sauce')
+        self.login(self.browser, 'locked_out_user', 'secret_sauce')
 
         # Action
-        error_message = self.driver.find_element(By.CLASS_NAME, 'error-message-container.error').text
+        error_message = self.browser.find_element(By.CLASS_NAME, 'error-message-container.error').text
 
         # postcondition
         assert error_message == 'Epic sadface: Sorry, this user has been locked out.'
